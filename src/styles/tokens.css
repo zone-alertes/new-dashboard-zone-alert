@@ -1,0 +1,32 @@
+/*
+ * Design tokens exported from Figma — collection "ZA V2 / Couleurs"
+ * (page "V2 — Fondations"). Keep names aligned with Figma: brand/primary → --za-brand-primary.
+ */
+:root {
+  --za-brand-primary: #e30613;
+  --za-brand-strong: #b0000d;
+  --za-brand-soft: #fde7e8;
+
+  --za-text-primary: #101828;
+  --za-text-secondary: #475467;
+  --za-text-tertiary: #667085;
+  --za-text-on-brand: #ffffff;
+
+  --za-surface-page: #f7f8fa;
+  --za-surface-card: #ffffff;
+  --za-surface-muted: #f2f4f7;
+
+  --za-border-default: #eaecf0;
+  --za-border-strong: #d0d5dd;
+
+  --za-status-danger: #b42318;
+  --za-status-danger-soft: #fee4e2;
+  --za-status-warning: #b54708;
+  --za-status-warning-soft: #fef0c7;
+  --za-status-success: #027a48;
+  --za-status-success-soft: #d1fadf;
+  --za-status-info: #175cd3;
+  --za-status-info-soft: #d1e9ff;
+  --za-status-neutral: #475467;
+  --za-status-neutral-soft: #f2f4f7;
+}

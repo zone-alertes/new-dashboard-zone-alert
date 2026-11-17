@@ -1,0 +1,72 @@
+import type { AppNotification } from "@/types/domain";
+
+export const NOTIFICATIONS: AppNotification[] = [
+  {
+    id: "n1",
+    kind: "alerte",
+    title: "Nouvelle alerte grave · ALT-2481 Braquage armé",
+    body: "Gombe, avenue de la Justice · 3 signalements · confiance IA 0,82",
+    at: "18:39",
+    day: "today",
+    read: false,
+    href: "/alertes/ALT-2481",
+    cta: "Qualifier l’alerte",
+  },
+  {
+    id: "n2",
+    kind: "assignation",
+    title: "Équipe Alpha-3 assignée à ALT-2481",
+    body: "Par Johnny Andedi · arrivée estimée 6 min",
+    at: "18:47",
+    day: "today",
+    read: false,
+    href: "/carte",
+  },
+  {
+    id: "n3",
+    kind: "prediction",
+    title: "Prédiction : risque très élevé à Gombe ce week-end",
+    body: "78 % de probabilité d’un incident grave vendredi ou samedi soir",
+    at: "18:00",
+    day: "today",
+    read: false,
+    href: "/ia/predictions",
+  },
+  {
+    id: "n4",
+    kind: "cloture",
+    title: "ALT-2472 clôturée",
+    body: "Résolue par Bravo-1 à Kintambo · durée totale 34 min",
+    at: "17:52",
+    day: "today",
+    read: true,
+  },
+  {
+    id: "n5",
+    kind: "avis",
+    title: "Avis AVR-0315 résolu : Ruth Ngalula retrouvée",
+    body: "Signalé par la famille, confirmé par Sgt Rich-man Ali",
+    at: "16:20",
+    day: "yesterday",
+    read: true,
+    href: "/avis-de-recherche",
+  },
+  {
+    id: "n6",
+    kind: "systeme",
+    title: "Rôle modifié : Grace Lukusa devient Analyste",
+    body: "Par Macgenius · consigné dans le journal d’audit",
+    at: "16:02",
+    day: "yesterday",
+    read: true,
+    href: "/utilisateurs",
+  },
+];
+
+export const NOTIFICATION_PREFERENCES = [
+  { event: "Alerte grave", app: true, sms: true, email: false },
+  { event: "Alerte assignée", app: true, sms: false, email: false },
+  { event: "Prédiction à risque", app: true, sms: false, email: true },
+  { event: "Avis de recherche", app: true, sms: false, email: false },
+  { event: "Rapport à valider", app: true, sms: false, email: true },
+];

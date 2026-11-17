@@ -1,36 +1,68 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Zone Alerte — console web (Next.js)
 
-## Getting Started
+Intégration frontend de la maquette Figma **« Dashboard zone alertes » V2** : console de sécurité urbaine pour Kinshasa (alertes citoyennes, interventions, carte en direct, avis de recherche, publications, IA prédictive, administration).
 
-First, run the development server:
+- **Next.js 16** (App Router, Turbopack, `cacheComponents`), **React 19**, **TypeScript strict**
+- **Tailwind CSS 4** branché sur les variables Figma `ZA V2 / Couleurs`, police **Poppins**
+- **TanStack Query 5** (état serveur) · **Zustand 5** (état client global) · **URL** (filtres) · **react-hook-form + zod** (formulaires)
+- **Leaflet** (carte), graphiques SVG maison, **Vitest + Testing Library**
+
+Le backend n’existe pas encore : une base **en mémoire** (`src/lib/mock`) simule l’API avec 250 ms de latence. Toutes les actions fonctionnent (valider, rejeter, fusionner, assigner, publier, archiver, inviter…) jusqu’au rechargement de la page.
+
+## Démarrer
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run dev            # http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+**Connexion de démonstration**
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+| Champ        | Valeur                                                                                                                          |
+| ------------ | ------------------------------------------------------------------------------------------------------------------------------- |
+| Email        | `macgenius@zonealerte.cd` (admin) — ou `r.ali@pnc.cd`, `j.andedi@zonealerte.cd`, `g.lukusa@zonealerte.cd` pour tester les rôles |
+| Mot de passe | n’importe quel mot de passe de 8 caractères ou plus                                                                             |
+| Code 2FA     | n’importe quels 6 chiffres (`000000` simule un code faux)                                                                       |
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+`p.ilunga@zonealerte.cd` est suspendu (message d’erreur dédié).
 
-## Learn More
+## Scripts
 
-To learn more about Next.js, take a look at the following resources:
+| Commande                          | Rôle                                                                            |
+| --------------------------------- | ------------------------------------------------------------------------------- |
+| `npm run dev` / `build` / `start` | Développement, build de production, serveur                                     |
+| `npm run check`                   | Typage + lint + tests (à lancer avant chaque PR)                                |
+| `npm run typecheck`               | Génère les types de routes Next puis `tsc --noEmit`                             |
+| `npm run lint`                    | ESLint (règles Next + React Compiler)                                           |
+| `npm test`                        | Vitest (stores, API simulée, schémas, composants)                               |
+| `npm run format`                  | Prettier + tri des classes Tailwind                                             |
+| `npm run assets:figma`            | Télécharge les photos des maquettes (`FIGMA_TOKEN` requis, voir `.env.example`) |
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Écrans (21 écrans Figma → routes)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+| Parcours           | Écran Figma                                                               | Route                                                                             |
+| ------------------ | ------------------------------------------------------------------------- | --------------------------------------------------------------------------------- |
+| 1 · Accès          | 1.1 Connexion · 1.2 Vérification en deux étapes                           | `/connexion`, `/verification`                                                     |
+| 2 · Alertes        | 2.1 Tableau de bord                                                       | `/tableau-de-bord`                                                                |
+|                    | 2.2 Liste des alertes                                                     | `/alertes?tab=…&severity=…&q=…&page=…`                                            |
+|                    | 2.3 Détail · 2.4 Rejeter avec motif · 2.5 Assigner une équipe             | `/alertes/ALT-2481`, `?action=rejeter`, `?action=assigner`                        |
+|                    | 2.6 Carte en direct · suivi                                               | `/carte`                                                                          |
+| 3 · Avis           | 3.1 Liste · 3.2 Détail · 3.3 Publier un avis (3 étapes)                   | `/avis-de-recherche`, `/avis-de-recherche/AVR-0318`, `/avis-de-recherche/nouveau` |
+| 4 · Publications   | 4.1 Liste · 4.2 Nouvelle · 4.3 Archiver                                   | `/publications`, `/publications/nouvelle`, `/publications?archiver=pub-125`       |
+| 5 · Analyse        | 5.1 Prédictions · 5.2 Recommandations · 5.3 Rapport IA · 5.4 Statistiques | `/ia/predictions`, `/ia/recommandations`, `/ia/rapports/nouveau`, `/statistiques` |
+| 6 · Administration | 6.1 Notifications · 6.2 Utilisateurs · 6.3 Paramètres · Sécurité          | `/notifications`, `/utilisateurs`, `/parametres/securite`                         |
 
-## Deploy on Vercel
+Bonus : recherche globale **Ctrl + K**, menu utilisateur (déconnexion), pages 404 et erreur.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+**Parcours fil rouge à tester** : Tableau de bord → « Traiter » ALT-2481 → Rejeter (doublon) _ou_ Valider → Assigner Alpha-3 → Carte en direct (suivi) → Notifications (nouvelle assignation) → Paramètres (journal d’audit mis à jour).
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Architecture
+
+Voir [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) : organisation par fonctionnalités, stratégie d’état, authentification, branchement du vrai backend.
+
+## Limites connues
+
+- Photos des personnes et avatars : non embarqués (initiales affichées). `npm run assets:figma` les récupère depuis Figma.
+- Tuiles de carte : OpenStreetMap, nécessite un accès Internet.
+- Les onglets Général / Notifications / Intégrations des Paramètres ne sont pas maquettés en V2.
+- Interface desktop (≥ 1280 px), comme la maquette.

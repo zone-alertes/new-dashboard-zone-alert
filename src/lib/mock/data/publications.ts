@@ -1,0 +1,72 @@
+import type { Publication } from "@/types/domain";
+
+export const PUBLICATION_COUNTS: Record<"total" | "publiee" | "programmee" | "brouillon" | "archivee", number> = {
+  total: 128,
+  publiee: 112,
+  programmee: 4,
+  brouillon: 9,
+  archivee: 3,
+};
+
+export const PUBLICATIONS: Publication[] = [
+  {
+    id: "pub-128",
+    category: "alerte",
+    status: "publiee",
+    title: "Délinquance urbaine : patrouilles renforcées à Ngaliema",
+    excerpt: "Suite à plusieurs signalements, la police renforce sa présence à Ngaliema de 18 h à 23 h. Restez vigilants et signalez tout fait suspect.",
+    audience: "Ngaliema · push + SMS",
+    byline: "Macgenius · 8 nov. 2026, 12:25",
+    views: "2 340 vues",
+  },
+  {
+    id: "pub-127",
+    category: "information",
+    status: "publiee",
+    title: "Campagne de sensibilisation : sécurité routière",
+    excerpt: "Des points d'information sont installés au rond-point Victoire et à Kintambo Magasin jusqu'au 15 novembre.",
+    audience: "Toute la ville · application",
+    byline: "Admin Zone · 7 nov. 2026, 09:10",
+    views: "5 812 vues",
+  },
+  {
+    id: "pub-126",
+    category: "appel_temoins",
+    status: "brouillon",
+    title: "Appel à témoins : disparition de Grace Mbuyi, 14 ans",
+    excerpt: "Vue pour la dernière fois le 6 novembre à l'arrêt Victoire, Kalamu, en uniforme scolaire bleu et blanc. Lié à l'avis AVR-0322.",
+    audience: "Kalamu · push + SMS",
+    byline: "Macgenius · modifié il y a 20 min",
+    views: "Non publiée",
+  },
+  {
+    id: "pub-125",
+    category: "alerte",
+    status: "publiee",
+    title: "Incendie dans la zone industrielle de Limete",
+    excerpt: "Les secours sont sur place. Évitez la 7e rue et le boulevard Lumumba jusqu'à nouvel ordre.",
+    audience: "Limete · push",
+    byline: "Service de sécurité · 6 nov. 2026, 21:05",
+    views: "9 104 vues",
+  },
+  {
+    id: "pub-124",
+    category: "systeme",
+    status: "programmee",
+    title: "Maintenance de la plateforme ce soir à 23:00",
+    excerpt: "Le service sera indisponible pendant 15 minutes. Les appels au 112 restent opérationnels.",
+    audience: "Toute la ville · application",
+    byline: "Équipe technique · prévue le 8 nov., 22:00",
+    views: "Non publiée",
+  },
+  {
+    id: "pub-123",
+    category: "appel_temoins",
+    status: "relecture",
+    title: "Appel à témoins : moto rouge, braquage à Gombe",
+    excerpt: "Une moto rouge a été vue quittant l'avenue de la Justice vers Socimat le 8 novembre vers 18:40. Validation d'un officier requise.",
+    audience: "Gombe · push",
+    byline: "Macgenius · modifié il y a 2 min",
+    views: "Non publiée",
+  },
+];

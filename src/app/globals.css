@@ -1,26 +1,112 @@
 @import "tailwindcss";
+@import "../styles/tokens.css";
+@import "leaflet/dist/leaflet.css";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
+/*
+ * Tailwind theme mapped 1:1 on the Figma variables "ZA V2 / Couleurs".
+ * Usage: bg-brand, text-ink-2, border-line, bg-danger-soft…
+ */
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-poppins), ui-sans-serif, system-ui, sans-serif;
+
+  --color-brand: var(--za-brand-primary);
+  --color-brand-strong: var(--za-brand-strong);
+  --color-brand-soft: var(--za-brand-soft);
+
+  --color-ink: var(--za-text-primary);
+  --color-ink-2: var(--za-text-secondary);
+  --color-ink-3: var(--za-text-tertiary);
+  --color-on-brand: var(--za-text-on-brand);
+
+  --color-page: var(--za-surface-page);
+  --color-card: var(--za-surface-card);
+  --color-muted: var(--za-surface-muted);
+
+  --color-line: var(--za-border-default);
+  --color-line-strong: var(--za-border-strong);
+
+  --color-danger: var(--za-status-danger);
+  --color-danger-soft: var(--za-status-danger-soft);
+  --color-warning: var(--za-status-warning);
+  --color-warning-soft: var(--za-status-warning-soft);
+  --color-success: var(--za-status-success);
+  --color-success-soft: var(--za-status-success-soft);
+  --color-info: var(--za-status-info);
+  --color-info-soft: var(--za-status-info-soft);
+  --color-neutral: var(--za-status-neutral);
+  --color-neutral-soft: var(--za-status-neutral-soft);
+
+  --shadow-overlay: 0 16px 40px rgb(0 0 0 / 0.18);
+  --shadow-popover: 0 8px 24px rgb(16 24 40 / 0.14);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* Text styles "V2/…" (Poppins) */
+@utility type-display {
+  font-size: 28px;
+  line-height: 36px;
+  font-weight: 600;
+}
+@utility type-h1 {
+  font-size: 22px;
+  line-height: 30px;
+  font-weight: 600;
+}
+@utility type-h2 {
+  font-size: 17px;
+  line-height: 24px;
+  font-weight: 600;
+}
+@utility type-h3 {
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 600;
+}
+@utility type-body {
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 400;
+}
+@utility type-body-strong {
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 500;
+}
+@utility type-small {
+  font-size: 13px;
+  line-height: 18px;
+  font-weight: 400;
+}
+@utility type-caption {
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 400;
+}
+@utility type-label {
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 500;
+}
+@utility type-kpi {
+  font-size: 26px;
+  line-height: 32px;
+  font-weight: 600;
+}
+
+@layer base {
+  html {
+    color-scheme: light;
+  }
+  body {
+    @apply bg-page type-body text-ink antialiased;
+  }
+  :focus-visible {
+    outline: 2px solid var(--za-brand-primary);
+    outline-offset: 2px;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* Leaflet: keep the map under overlays and drawers */
+.leaflet-container {
+  font-family: inherit;
+  z-index: 0;
 }
